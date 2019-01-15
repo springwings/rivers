@@ -1,0 +1,379 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>River Instances Manage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="River Control and Monitor Panel" />
+<script type="application/x-javascript"> 
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<style type="text/css"> 
+.box {
+    margin-bottom: 20px;
+}
+.box .box-title h3 {
+    color: #2B2B2B;
+    display: inline-block;
+    line-height: 20px;
+    margin: 0;
+    white-space: nowrap;
+}
+.box > .box-title {
+    padding: 10px;
+    position: relative;
+	background-color:#F1F1F1;
+    text-shadow: 0 1px 0 #444;
+}
+.box .box-content {
+    background: #fff none repeat scroll 0 0;
+    padding: 10px;
+}
+.box-tool{
+	float:right;
+}
+.messages > li {
+    margin-bottom: 20px;
+}
+ 
+.messages > li > b {
+    border-radius: 100%;
+    float: left;
+    height: 60px;
+    width: 30px;
+    font-size:20px;
+}
+.messages > li > div {
+    background-color: #f8f9fa;
+    margin-left: 20px;
+    padding: 1px 10px 10px;
+    position: relative;white-space: pre ;
+}
+ 
+.messages-input-form .buttons { 
+    white-space: nowrap;
+}
+</style>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/global.js"></script>
+<script src="js/command.js"></script>
+<script src="js/resource.js"></script>
+<script>
+	new WOW().init();
+</script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div class=" sidebar" role="navigation">
+			<div class="navbar-collapse">
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
+					id="cbp-spmenu-s1">
+					<ul class="nav" id="side-menu">
+						<li><a href="index.html"><i class="fa fa-home nav_icon"></i>Dashboard</a>
+						</li>
+
+						<li><a href="instances.html"><i	class="fa fa-cogs nav_icon"></i>Instances & CloudNodes </a></li>
+
+						<li><a href="command.html"><i class="fa fa-code nav_icon"></i>Command Mode</a></li>
+						<li>
+							<a href="resource.html"><i class="fa nav_icon fa-cloud"></i>Resource Manager</a>
+						</li>
+						<li>
+							<a href="create_instance.html"><i class="fa fa-cogs nav_icon"></i>Create Instance</a>
+						</li>
+					</ul>
+					<div class="clearfix"></div>
+					<!-- //sidebar-collapse -->
+				</nav>
+			</div>
+		</div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div class="sticky-header header-section ">
+			<div class="header-left">
+				<!--toggle button start-->
+				<button id="showLeftPush">
+					<i class="fa fa-bars"></i>
+				</button>
+				<!--toggle button end-->
+				<!--logo -->
+				<div class="logo">
+					<a href="index.html">
+						<h1>RIVERS</h1> <span>AdminPanel</span>
+					</a>
+				</div>
+				<!--//logo-->
+				<div class="clearfix"></div>
+			</div>
+			<div class="header-right">
+				<div class="profile_details">
+					<ul>
+						<li class="dropdown profile_details_drop"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"
+							aria-expanded="false">
+								<div class="profile_img">
+									<span class="prfil-img"><img src="images/a.png" alt="">
+									</span>
+									<div class="user-name">
+										<p>
+											<script>
+												getCurrent();
+											</script>
+										</p>
+										<span>river connect</span>
+									</div>
+									<i class="fa fa-angle-down lnr"></i> <i
+										class="fa fa-angle-up lnr"></i>
+									<div class="clearfix"></div>
+								</div>
+						</a>
+							<ul class="dropdown-menu drp-mnu">
+								<script>
+									writeEnvirements();
+								</script>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="tables">
+                    <h3 class="title1"><i class="fa fa-cloud"></i>  Resource Manager </h3>
+					<div class="row">
+						<div class="box-content">
+							<div class="box">
+								<div class="box-title" style="background-color:#F1F1F1;">
+									<h3><i class="fa   fa-cloud"></i> SQL Resource</h3>
+									<div class="box-tool" >
+										<button  data-toggle="modal" data-target="#SqlResourceModal"   type="button" onclick="addResource('Sql')" class="btn btn-sm "><i class="fa fa-plus"></i> </button>
+									</div>
+								</div>
+								<div class="box-content">
+									<table class="table">
+										<thead>
+										<tr>
+											<th>#</th>
+											<th>name</th>
+											<th>host</th>
+											<th>dbname</th>
+											<th>编辑</th>
+											<th>删除</th>
+										</tr>
+										</thead>
+										<tbody  id="sql-row">
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="box">
+                                <div class="box-title">
+                                    <h3><i class="fa   fa-cloud"></i> NoSQL Resource</h3>
+                                    <div class="box-tool" style="float:right;">
+										<button  data-toggle="modal" data-target="#NoSqlResourceModal"   type="button" onclick="addResource('NoSql')" class="btn btn-sm "><i class="fa fa-plus"></i> </button>
+                                    </div>
+                                </div>
+                                <div class="box-content">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>name</th>
+                                            <th>type</th>
+                                            <th>alias</th>
+                                            <th>ip</th>
+                                            <th>编辑</th>
+											<th>删除</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="nosql-row">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- main content end -->
+		<!--footer-->
+		<div class="footer">
+			<p>Copyright &copy;feiniu.com 2017.Rivers</p>
+		</div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+        var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+            showLeftPush = document.getElementById( 'showLeftPush' ),
+            body = document.body;
+
+        showLeftPush.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( body, 'cbp-spmenu-push-toright' );
+            classie.toggle( menuLeft, 'cbp-spmenu-open' );
+            disableOther( 'showLeftPush' );
+        };
+
+        function disableOther( button ) {
+            if( button !== 'showLeftPush' ) {
+                classie.toggle( showLeftPush, 'disabled' );
+            }
+        }
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js"> </script>
+
+	<div style="display:none" id="hiddenval"></div>
+	<!-- 弹出框 start -->
+	<!-- SQL -->
+	<div class="modal fade" id="SqlResourceModal" tabindex="-1" role="dialog" aria-labelledby="SqlResourceModalLabel" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="box">
+					<div class="box-title">
+						<h3><i class="fa fa-bars"></i> 新增SQL池配置 </h3>
+						<div class="box-tool">
+							<a data-action="close" data-dismiss="modal" href="#"><i class="fa fa-times"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<form action="#" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">实例名称</label>
+								<div id = "sql-name-content" class="col-sm-9 col-lg-10 controls">
+									<input readonly="readonly" id= "sql-name" type="text" placeholder="name" class="form-control">
+									<span class="help-inline" style="color: #cd201f;font-size: small;">注: * 必填 所起name应与配置实例名称一致</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">数据库地址</label>
+								<div id = "sql-host-content"  class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">数据库端口</label>
+								<div id = "sql-port-content"  class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">数据库用户名</label>
+								<div id = "sql-user-content" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">数据库密码</label>
+								<div id = "sql-password-content" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">数据库名称</label>
+								<div id = "sql-dbname-content" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">序列</label>
+								<div id = "sql-seq-content" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">类型</label>
+								<div id="sql-radio" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+
+
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+									<button id="savebtn_sql"  type="button" class="btn btn-success">Save</button>
+									<button id="savebtn_sql_close" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+	<!-- NoSQL -->
+	<div class="modal fade" id="NoSqlResourceModal" tabindex="-1" role="dialog" aria-labelledby="NoSqlResourceModalLabel" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="box">
+					<div class="box-title">
+						<h3><i class="fa fa-bars"></i> 新增NOSQL池配置 </h3>
+						<div class="box-tool">
+							<a data-action="close" data-dismiss="modal" href="#"><i class="fa fa-times"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<form action="#" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">实例名称</label>
+								<div id="nosql-name-content" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">IP</label>
+								<div id="nosql-ip-content"  class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">别名</label>
+								<div id="nosql-alias-content" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">默认值</label>
+								<div id="nosql-defaultValue-content" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">handler</label>
+								<div id="nosql-handler-content" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">类型</label>
+								<div id = "nosql-radio" class="col-sm-9 col-lg-10 controls"></div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+									<button id="savebtn_nosql"  type="button" class="btn btn-success">Save</button>
+									<button id="savebtn_nosql_close" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+	<!-- 弹出框 end -->
+	<script>
+        getResource();
+	</script>
+</body>
+</html>

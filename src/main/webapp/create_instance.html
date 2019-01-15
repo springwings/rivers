@@ -1,0 +1,857 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>River Instances Manage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="River Control and Monitor Panel" />
+<script type="application/x-javascript">
+	
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+
+	
+</script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- js-->
+<style type="text/css">
+.box {
+	margin-bottom: 20px;
+}
+.tables h4.panel-title {
+	color:#fff;
+}
+.box .box-title h3 {
+	color: #2B2B2B;
+	display: inline-block;
+	line-height: 20px;
+	margin: 0;
+	white-space: nowrap;
+}
+
+.box>.box-title {
+	padding: 10px;
+	position: relative;
+	background-color: #F1F1F1;
+	text-shadow: 0 1px 0 #444;
+}
+
+.box .box-content {
+	background: #fff none repeat scroll 0 0;
+	padding: 10px;
+}
+
+.box-tool {
+	float: right;
+}
+
+.messages>li {
+	margin-bottom: 20px;
+}
+
+.messages>li>b {
+	border-radius: 100%;
+	float: left;
+	height: 60px;
+	width: 30px;
+	font-size: 20px;
+}
+  .form-group {
+    margin-left: -15px;
+    margin-right: -15px;
+    display:table;
+    width:95%;
+} 
+.messages>li>div {
+	background-color: #f8f9fa;
+	margin-left: 20px;
+	padding: 1px 10px 10px;
+	position: relative;
+	white-space: pre;
+}
+
+.messages-input-form .buttons {
+	white-space: nowrap;
+}
+</style>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css"
+	media="all">
+<script src="js/wow.min.js"></script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/global.js"></script>
+<script src="js/command.js"></script>
+<script src="js/create_resource.js"></script>
+<script>
+	new WOW().init();
+</script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div class=" sidebar" role="navigation">
+			<div class="navbar-collapse">
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
+					id="cbp-spmenu-s1">
+					<ul class="nav" id="side-menu">
+						<li><a href="index.html"><i class="fa fa-home nav_icon"></i>Dashboard</a>
+						</li>
+
+						<li><a href="instances.html"><i
+								class="fa fa-cogs nav_icon"></i>Instances & CloudNodes </a></li>
+
+						<li><a href="command.html"><i class="fa fa-code nav_icon"></i>Command
+								Mode</a></li>
+						<li><a href="resource.html"><i
+								class="fa nav_icon fa-cloud"></i>Resource Manager</a></li>
+						<li><a href="create_instance.html"><i
+								class="fa fa-cogs nav_icon"></i>Create Instance</a></li>
+					</ul>
+					<div class="clearfix"></div>
+					<!-- //sidebar-collapse -->
+				</nav>
+			</div>
+		</div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div class="sticky-header header-section ">
+			<div class="header-left">
+				<!--toggle button start-->
+				<button id="showLeftPush">
+					<i class="fa fa-bars"></i>
+				</button>
+				<!--toggle button end-->
+				<!--logo -->
+				<div class="logo">
+					<a href="index.html">
+						<h1>RIVERS</h1> <span>AdminPanel</span>
+					</a>
+				</div>
+				<!--//logo-->
+				<div class="clearfix"></div>
+			</div>
+			<div class="header-right">
+				<div class="profile_details">
+					<ul>
+						<li class="dropdown profile_details_drop"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"
+							aria-expanded="false">
+								<div class="profile_img">
+									<span class="prfil-img"><img src="images/a.png" alt="">
+									</span>
+									<div class="user-name">
+										<p>
+											<script>
+												getCurrent();
+											</script>
+										</p>
+										<span>river connect</span>
+									</div>
+									<i class="fa fa-angle-down lnr"></i> <i
+										class="fa fa-angle-up lnr"></i>
+									<div class="clearfix"></div>
+								</div>
+						</a>
+							<ul class="dropdown-menu drp-mnu">
+								<script>
+									writeEnvirements();
+								</script>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="tables">
+					<h3 class="title1"><i class="fa fa-cogs"></i>  Instances &amp; Create</h3>
+					<div  id="select_method" class="row">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h4 class="panel-title">选择构建方式</h4>
+							</div>
+							<div class="panel-body"><button class="btn btn-primary" onclick="select_into('xml')">XML方式</button>  <button class="btn btn-info" onclick="select_into('daohang')">导航方式</button></div>
+						</div>
+					</div>
+					<div class="row" id="xml_method" style="display: none">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h4 class="panel-title">XML Content</h4>
+							</div>
+							<div class="panel-body">
+							<div class="form-group  col-sm-12 col-lg-12">
+							<label class="col-sm-3 col-lg-2 control-label">Instance Name</label>
+										<div class="col-sm-9 col-lg-10 controls">
+											<input type="text" placeholder="name" class="form-control"
+												id="instance_name">  
+										</div>
+							</div>
+                                <div class="form-group  col-sm-12 col-lg-12">
+                                    <label class="col-sm-3 col-lg-2 control-label">Instance Type</label>
+                                    <div class="col-sm-9 col-lg-10 controls">
+                                        <lable class="checkbox-inline"><input type="checkbox" value=0
+                                                                              name="xmlCheckbox"> Blank
+                                        </lable>
+                                        <lable class="checkbox-inline"><input type="checkbox" value=1 name="xmlCheckbox"
+                                                                              checked=true> Transfer
+                                        </lable>
+                                    </div>
+                                </div>
+							<div class="form-group col-sm-12 col-lg-12">
+							<label class="col-sm-3 col-lg-2 control-label">Instance XML</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<textarea class="form-control" id="xmlTextarea" rows="15">
+
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+<dataflow alias="test">
+		<TransParam>
+			<param>
+				<name>writeTo</name>
+				<value>resource_name</value>
+			</param>
+			<param>
+				<name>readFrom</name>
+				<value>resource_name</value>
+            </param>
+            <param>
+				<name>searchFrom</name>
+				<value>resource_name</value>
+			</param>
+			<param>
+				<name>splitBy</name>
+				<value></value>
+			</param>
+			<param>
+				<name>handler</name>
+				<value></value>
+			</param>
+			<param>
+				<name>deltaCron</name>
+				<value>0 1/5 * * * ?</value>
+			</param>
+		</TransParam>
+        <ReadParam>
+		<sql keyColumn="id" incrementField="update_time" >
+<![CDATA[
+select
+id,
+UNIX_TIMESTAMP(update_time) update_time from  xxx
+where UNIX_TIMESTAMP(update_time) > #{start_time} and id>'#{start}' and id<='#{end}'
+]]>
+</sql>
+<pageScan>
+<![CDATA[
+ select
+id
+from  xxx
+where UNIX_TIMESTAMP(update_time) > #{start_time}
+]]>
+		</pageScan>
+        </ReadParam>
+        <ComputeParam>
+        </ComputeParam>
+        <WriteParam>
+			<fields>
+				<field name="id" indexed="true" stored="true" indextype="text" paramname="id" paramtype="java.lang.String"/>
+				<field name="session_id" indexed="true" stored="true" indextype="text" paramname="session_id" paramtype="java.lang.String"/>
+			</fields>
+		</WriteParam>
+	    <SearchParam>
+	<param>
+		<name>start</name>
+		<paramtype>java.lang.Integer</paramtype>
+		<defaultValue>0</defaultValue>
+            </param>
+            <param>
+		<name>count</name>
+		<paramtype>java.lang.Integer</paramtype>
+		<defaultValue>1</defaultValue>
+            </param>
+            <param>
+		<name>sort</name>
+		<paramtype>java.lang.String</paramtype>
+            </param>
+  </SearchParam>
+</dataflow>
+</config>
+
+
+
+									</textarea>
+							</div>
+								<button class="btn btn-info" onclick="createXML(this)">Add Instance</button>
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" id="daohang_method" style="display: none">
+						<div class="box-content">
+							<div class="box">
+								<div class="box-title">
+									<div class="form-group">
+										<label class="col-sm-3 col-lg-2 control-label">新建实例名称</label>
+										<div class="col-sm-9 col-lg-10 controls">
+											<input type="text" placeholder="name" class="form-control"
+												id="es_instance_name"> <span class="help-inline"
+												style="color: #cd201f; font-size: small;">注: * 必填</span>
+										</div>
+										<label class="col-sm-3 col-lg-2 control-label">实例别名</label>
+										<div class="col-sm-9 col-lg-10 controls">
+											<input type="text" placeholder="name" class="form-control"
+												id="es_alias_name"> <span class="help-inline"
+												style="color: #cd201f; font-size: small;">注: * 选填</span>
+										</div>
+                                        <label class="col-sm-3 col-lg-2 control-label">Instance Type</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            <lable class="checkbox-inline"><input type="checkbox" value=0
+                                                                                  name="esCheckbox"> Blank
+                                            </lable>
+                                            <lable class="checkbox-inline"><input type="checkbox" value=1
+                                                                                  name="esCheckbox" checked=true>
+                                                Transfer
+                                            </lable>
+                                        </div>
+									</div>
+									<h3>
+										<i class="fa fa-table"></i> TransParams
+									</h3>
+									<div class="box-tool" style="float: right;">
+										<a data-toggle="modal" data-target="#TransParamsModal"
+											title="新增Nosql数据库配置" href="#"><i class="fa fa-plus"></i></a>
+									</div>
+								</div>
+								<div class="box-content">
+									<table class="table" id="trans_params_table">
+										<thead>
+											<tr>
+												<th>name</th>
+												<th>value</th>
+												<th>编辑</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="box">
+								<div class="box-title" style="background-color: #F1F1F1;">
+									<h3>
+										<i class="fa fa-table"></i> ES表结构
+									</h3>
+									<div class="box-tool">
+										<a data-toggle="modal" data-target="#CreateIndexModal"
+											title="新增sql数据库配置" href="#"><i class="fa fa-plus"></i></a>
+									</div>
+								</div>
+								<div class="box-content">
+									<table class="table" id="create_es_table">
+										<thead>
+											<tr>
+												<th>name</th>
+												<th>handler</th>
+												<th>router</th>
+												<th>indexed</th>
+												<th>stored</th>
+												<th>indextype</th>
+												<th>separator</th>
+												<th>analyzer</th>
+												<th>dsl</th>
+												<th>paramname</th>
+												<th>paramtype</th>
+												<th>编辑</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="box">
+								<div class="box-title">
+									<h3>
+										<i class="fa fa-table"></i> SearchParams
+									</h3>
+									<div class="box-tool" style="float: right;">
+										<a data-toggle="modal" data-target="#SearchParamsModal"
+											title="新增Nosql数据库配置" href="#"><i class="fa fa-plus"></i></a>
+									</div>
+								</div>
+								<div class="box-content">
+									<table class="table" id="search_params_table">
+										<thead>
+											<tr>
+												<th>name</th>
+												<th>paramtype</th>
+												<th>defaultValue</th>
+												<th>includeLower</th>
+												<th>includeUpper</th>
+												<th>fields</th>
+												<th>编辑</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!--<tr>-->
+											<!--<td>start</td>-->
+											<!--<td>java.lang.Integer</td>-->
+											<!--<td>0</td>-->
+											<!--<td><a data-toggle="modal" data-target="#SearchParamsModal"  title="编辑" href="#"/><i class="fa fa-edit"></i></td>-->
+											<!--</tr>-->
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h4 class="panel-title fa fa-table"> SQL配置</h4>
+								</div>
+								<div class="panel-body">
+							<div class="form-group-sql">
+								<label class="col-sm-3 col-lg-2 control-label">keyColumn</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name"
+										class="form-control form-sql" id="keyColumn"> <span
+										class="help-inline" style="color: #cd201f; font-size: small;">注:
+										* 必填 主键</span>
+								</div>
+
+								<label class="col-sm-3 col-lg-2 control-label">incrementField</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name"
+										class="form-control form-sql" id="incrementField"> <span
+										class="help-inline" style="color: #cd201f; font-size: small;">注:
+										* 必填 增量扫描比较字段</span>
+								</div>
+
+								<label class="col-sm-3 col-lg-2 control-label">keyColumnType</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name"
+										class="form-control form-sql" id="keyColumnType"> <span
+										class="help-inline" style="color: #cd201f; font-size: small;">注:
+										* 选填 主键类型</span>
+								</div>
+
+								<label class="col-sm-3 col-lg-2 control-label">handler</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name"
+										class="form-control form-sql" id="handler"> <span
+										class="help-inline" style="color: #cd201f; font-size: small;">注:
+										* 选填 定义job扫描处理器</span>
+								</div>
+
+								<label class="col-sm-3 col-lg-2 control-label">seq</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name"
+										class="form-control form-sql" id="seq"> <span
+										class="help-inline" style="color: #cd201f; font-size: small;">注:
+										* 选填 多表扫描分割序列号</span>
+								</div>
+
+								<div class="form-group">
+									<label for="sqlTextarea">sql</label>
+									<textarea class="form-control rounded-0" id="sqlTextarea"
+										rows="10"></textarea>
+								</div>
+
+								<div class="form-group">
+                                    <label for="pageScanTextarea">pageScan</label>
+                                    <textarea class="form-control rounded-0" id="pageScanTextarea"
+										rows="10"></textarea>
+								</div>
+
+								<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+									<button id="createXML" type="button" onclick="createXML(null)"
+										class="btn btn-success">Add Instance</button>
+								</div>
+							</div>
+
+
+						</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- main content end -->
+		<!--footer-->
+		<div class="footer">
+			<p>Copyright &copy;feiniu.com 2017.Rivers</p>
+		</div>
+		<!--//footer-->
+	</div>
+	<!-- Classie -->
+	<script src="js/classie.js"></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'), showLeftPush = document
+				.getElementById('showLeftPush'), body = document.body;
+
+		showLeftPush.onclick = function() {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js">
+		
+	</script>
+
+	<div style="display: none" id="hiddenval"></div>
+	<!-- 弹出框 start -->
+	<!-- es index -->
+	<div class="modal fade" id="CreateIndexModal" tabindex="-1"
+		role="dialog" aria-labelledby="SqlResourceModalLabel"
+		style="display: none;" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="box">
+					<div class="box-title">
+						<h3>
+							<i class="fa fa-bars"></i> 新增ES索引配置
+						</h3>
+						<div class="box-tool">
+							<a data-action="close" data-dismiss="modal" href="#"><i
+								class="fa fa-times"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<form action="#" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">name</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name" class="form-control"
+										id="es_name_text"> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">注: * 必填  来源名称</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">handler</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name" class="form-control"
+										   id="handler_text"> <span class="help-inline"
+																	style="color: #cd201f; font-size: small;">注: * 选填 跨字段记录自定义处理器</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">router</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<select class="selectpicker" id="router_selectpicker">
+										<option>false</option>
+										<option>true</option>
+									</select> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">* 必填 true/false(路由配置)</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">indexed</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<select class="selectpicker" id="indexed_selectpicker">
+										<option>true</option>
+										<option>false</option>
+									</select> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">注:* 必填 是否索引</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">stored</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<select class="selectpicker" id="stored_selectpicker">
+										<option>true</option>
+										<option>false</option>
+									</select> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">* 必填 是否存储</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">indextype</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<select class="selectpicker" id="indextype_selectpicker">
+										<option>text</option>
+										<option>keyword</option>
+										<option>long</option>
+										<option>integer</option>
+										<option>short</option>
+										<option>double</option>
+										<option>float</option>
+										<option>date</option>
+										<option>boolean</option>
+										<option>geo_point</option>
+										<option>geo_shape</option>
+									</select> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">* 必填 数据类型</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">separator</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name" class="form-control"
+										   id="separator_text"> <span class="help-inline"
+																	style="color: #cd201f; font-size: small;">注: * 选填 数据分隔符</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">analyzer</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name" class="form-control"
+										   id="analyzer_text"> <span class="help-inline"
+																	  style="color: #cd201f; font-size: small;">注: * 选填  分词器</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">dsl</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss" class="form-control"
+										   id="dsl_text"> <span class="help-inline"
+																	style="color: #cd201f; font-size: small;">注: * 选填 域额外信息 示例(k:v,k:v,...,k:v)</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">paramname</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name" class="form-control"
+										id="paramname_text"> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">注: * 必填 存储名称 默认为name值</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">paramtype</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<select class="selectpicker" id="paramtype_index_selectpicker">
+										<option>java.lang.String</option>
+										<option>com.feiniu.util.LongRangeType</option>
+									</select> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">* 必填 数据转置处理器</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+									<button id="insert_index" type="button"
+										onclick="insert_index()" class="btn btn-success"
+                                    >Save
+                                    </button>
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+
+	<!-- SearchParams -->
+	<div class="modal fade" id="SearchParamsModal" tabindex="-1"
+		role="dialog" aria-labelledby="SqlResourceModalLabel"
+		style="display: none;" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="box">
+					<div class="box-title">
+						<h3>
+							<i class="fa fa-bars"></i> 配置搜索参数
+						</h3>
+						<div class="box-tool">
+							<a data-action="close" data-dismiss="modal" href="#"><i
+								class="fa fa-times"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<form action="#" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">name</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name" class="form-control"
+										id="param_name"> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">注: * 必填 参数名称</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">paramtype</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<select class="selectpicker" id="paramtype_selectpicker">
+										<option>java.lang.String</option>
+										<option>java.lang.Integer</option>
+									</select> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">* 必填 传入类型限制</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">defaultValue</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name" class="form-control"
+										id="defaultValue_text"> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">注: * 选填 预设值</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">includeLower</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<select class="selectpicker" id="includeLower_selectpicker">
+										<option></option>
+										<option>true</option>
+										<option>false</option>
+									</select> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">* 选填 是否包含下界(true/false)，用于范围查询字段</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">includeUpper</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<select class="selectpicker" id="includeUpper_selectpicker">
+										<option></option>
+										<option>true</option>
+										<option>false</option>
+									</select> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">* 选填 是否包含上界(true/false)，用于范围查询字段</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">fields</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name" class="form-control"
+										id="fields_text"> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">注: * 选填 (存储字段）paramname_1,...,paramname_n</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+									<button id="insert_para_index" type="button"
+										onclick="insert_para_index()" class="btn btn-success"
+                                    >Save
+                                    </button>
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+
+    <!-- TransParamsModal -->
+	<div class="modal fade" id="TransParamsModal" tabindex="-1"
+		role="dialog" aria-labelledby="SqlResourceModalLabel"
+		style="display: none;" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="box">
+					<div class="box-title">
+						<h3>
+							<i class="fa fa-bars"></i> 定义管道参数
+						</h3>
+						<div class="box-tool">
+							<a data-action="close" data-dismiss="modal" href="#"><i
+								class="fa fa-times"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<form action="#" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">name</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<select class="selectpicker" id="transname_selectpicker">
+										<option>writeTo</option>
+										<option>writerPoolShareAlias</option>
+										<option>instanceName</option>
+										<option>isMaster</option>
+                                        <option>readPageSize</option>
+										<option>readFrom</option>
+										<option>readerPoolShareAlias</option>
+										<option>searchFrom</option>
+										<option>searcherShareAlias</option>
+										<option>writeType</option>
+										<option>dataFromhandler</option>
+										<option>writeTohandler</option>
+										<option>searcherhandler</option>
+										<option>nextJob</option>
+										<option>fullCron</option>
+										<option>deltaCron</option>
+									</select> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">* 必填 参数类型</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-lg-2 control-label">value</label>
+								<div class="col-sm-9 col-lg-10 controls">
+									<input type="text" placeholder="name" class="form-control"
+										id="transparam_name"> <span class="help-inline"
+										style="color: #cd201f; font-size: small;">注: * 必填 参数值</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                    <button id="insert_trans_index" type="button" class="btn btn-success">Save</button>
+									<!--<input type="button" onclick="insert_index()" id="insert_index" class="btn btn-info" value=" 添加 " style="">-->
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<!-- 弹出框 end --> 
+</body>
+</html>
