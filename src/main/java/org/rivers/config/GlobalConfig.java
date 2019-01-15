@@ -9,16 +9,16 @@ public class GlobalConfig {
 	public static String zkConnectionTimeout = "1000";
 	public static String zkInstancePath;
 	public static String instanceFilePath;
-	public static String backupCron="0 0 2 * * ? *";
+	public static String backupCron = "0 0 2 * * ? *";
 
-	public GlobalConfig(String _riverUrls, String _zkhosts,
-			String _zkConfigPath,String _instancePath,String _backupCron) {
-		riverUrls = _riverUrls; 
+	public GlobalConfig(String _riverUrls, String _zkhosts, String _zkConfigPath, String _instancePath,
+			String _backupCron) {
+		riverUrls = _riverUrls;
 		zkhosts = _zkhosts;
 		zkConfigPath = _zkConfigPath;
 		instanceFilePath = _instancePath;
 		backupCron = _backupCron;
-		zkInstancePath = zkConfigPath+"/INSTANCES";
+		zkInstancePath = zkConfigPath + "/INSTANCES";
 		ZKUtil.setZkHost(zkhosts);
 		ZKUtil.setZkConfigPath(zkConfigPath);
 	}

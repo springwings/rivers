@@ -24,12 +24,12 @@
 			</list>
 		</property>
 	</bean> 
-    <bean id="GlobalConfig" class="com.feiniu.river.config.GlobalConfig">   
+    <bean id="GlobalConfig" class="org.rivers.config.GlobalConfig">   
     	<constructor-arg value="#{ConfigBean['river.url']}" />
     	<constructor-arg value="#{ConfigBean['zkhost']}" />
     	<constructor-arg value="#{ConfigBean['zkConfigPath']}" /> 
     	<constructor-arg value="#{ConfigBean['InstanceDataPath']}" /> 
     	<constructor-arg value="#{ConfigBean['backupCron']}" /> 
     </bean> 
-    <bean id="Run" class="com.feiniu.river.service.Run" init-method="start" />  
+    <bean id="Run" class="org.rivers.service.Run" init-method="start" />  
 </beans>
