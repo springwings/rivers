@@ -249,22 +249,36 @@
 			</param>
 		</TransParam>
         <ReadParam>
-		<sql keyColumn="id" incrementField="update_time" >
+		<param>
+				<name>keyField</name>
+				<value>id</value>
+			</param>
+			<param>
+				<name>scanField</name>
+				<value>update_time</value>
+			</param>
+			<param>
+				<name>dataScanDSL</name>
+				<value>
 <![CDATA[
 select
 id,
 UNIX_TIMESTAMP(update_time) update_time from  xxx
 where UNIX_TIMESTAMP(update_time) > #{start_time} and id>'#{start}' and id<='#{end}'
 ]]>
-</sql>
-<pageScan>
+</value>
+			</param>
+			<param>
+				<name>pageScanDSL</name>
+				<value>
 <![CDATA[
  select
 id
 from  xxx
 where UNIX_TIMESTAMP(update_time) > #{start_time}
 ]]>
-		</pageScan>
+		</value>
+			</param>
         </ReadParam>
         <ComputeParam>
         </ComputeParam>
