@@ -30,6 +30,6 @@ public class MD5Util {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(SaltMd5("fresh_order_item"));
+		System.out.println(SaltMd5("runNow"));
 	}
 }

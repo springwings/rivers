@@ -59,7 +59,7 @@ public class RiverCenter {
 
 	public static HashMap<String, Object> getAllInstances() {
 		HashMap<String, Object> res = new HashMap<String, Object>();
-		HashMap<String, HashMap<String, HashMap<String, Object>>> _tmp = new HashMap<String, HashMap<String, HashMap<String, Object>>>();
+		HashMap<String, HashMap<String, JSONObject>> _tmp = new HashMap<String, HashMap<String, JSONObject>>();
 		List<String> downServer = new ArrayList<String>();
 		for (String path : GlobalConfig.riverUrls.split(",")) {
 			try {
@@ -71,32 +71,18 @@ public class RiverCenter {
 				while (itr.hasNext()) {
 					String alias = (String) itr.next();
 					JSONArray ja = jr.getJSONArray(alias);
-					HashMap<String, HashMap<String, Object>> instances = new HashMap<String, HashMap<String, Object>>();
+					HashMap<String, JSONObject> instances = new HashMap<String, JSONObject>();
 					if (_tmp.containsKey(alias)) {
 						instances = _tmp.get(alias);
 					}
 					for (int j = 0; j < ja.size(); j++) {
 						String nodes = ja.getString(j);
-						String instanceName = nodes.split(":")[0];
+						JSONObject jo = JSONObject.fromObject(nodes);
+						String instanceName = jo.getString("instance");
 						if (!instances.containsKey(instanceName)) {
-							instances.put(instanceName, new HashMap<String, Object>());
+							instances.put(instanceName, jo);
 						}
-						String[] tmps = nodes.split(":");
-						for (int i = 0; i < tmps.length; i++) {
-							if (i > 0) {
-								String k = tmps[i].split("]")[0].substring(1);
-								if (tmps[i].split("]").length != 2) {
-									continue;
-								}
-								String v = tmps[i].split("]")[1];
-								if (instances.get(instanceName).containsKey(k)) {
-									instances.get(instanceName).put(k,
-											instances.get(instanceName).get(k) + "," + path + "|" + v);
-								} else {
-									instances.get(instanceName).put(k, path + "|" + v);
-								}
-							}
-						}
+						 
 					}
 					_tmp.put(alias, instances);
 				}
