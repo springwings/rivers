@@ -1,4 +1,3 @@
-
 function objKeySort(arys) {  
                 var newkey = Object.keys(arys).sort(); 
                 var newObj = {};  
@@ -106,57 +105,55 @@ function Map() {
 
 
 function writeRow(name,data){  
+	 
 	var columninfo = "";
 	var ips = new Map();
 	var rowinfos = "";  
 	var cron_content="";
 	var indexips = new Map();
 	var alias="";
-	var reloadIPs = new Map(); 
+	var reloadIPs = new Map();
+
 	for(var r in data){
 		if(r!='IndexType')
 			columninfo+='<th>'+r+'</th>'; 
-
-		var rows = data[r];
+	 
+		var rows = data[r].split(",");
 		for(var j in rows){  
-			if(ips.get(j)==null){
-				ips.set(j,j);
+			if(ips.get(rows[j].split("|")[0])==null){
+				ips.set(rows[j].split("|")[0],rows[j].split("|")[0]);
 			} 
 		}; 
 	}     
-	ips.set("default","")//fix bug   
-	var deleteIps="";
+	ips.set("default","")//fix bug  
 	for(var i = 0;i<ips.size();i++){  
 		if(ips.get_key(i)=='default' || ips.get_key(i)=='')
 			continue;
 		var css="";
 		var indextype="0";
 		var rowcontent="";
-		rowcontent+="<td scope=\"row\">";  
-		if(typeof(ips.get_key(i))!="undefined"){
-			deleteIps+=ips.get_key(i)+",";
-		} 
+		rowcontent+="<td scope=\"row\">"; 
 		rowcontent+='<a data-ip="'+ips.get_key(i)+'"  data-id="'+name+'" class="view_info " href="" data-toggle="modal" data-target="#gridSystemModal" title="view run state">';
 		rowcontent+= ips.get_key(i)+"</a></td>"; 
 		for(var r in data){    
-			var rows = data[r];  
+			var rows = data[r].split(",");  
 			var is_set = false; 
 			for(var j in rows){ 
-				if(j==ips.get_key(i)){
+				if(rows[j].split("|")[0]==ips.get_key(i)){
 					if(r=='IndexType'){
-						indextype = rows[j];
+						indextype = rows[j].split("|")[1];
 					}else{
-						rowcontent+="<td>"+(rows[j]=='null'?'not set!':rows[j])+"</td>";
+						rowcontent+="<td>"+(rows[j].split("|")[1]=='null'?'not set!':rows[j].split("|")[1])+"</td>";
 					}
 					if(r=='Alias'){
-						alias = rows[j];
+						alias = rows[j].split("|")[1];
 					}
 					is_set = true;
-					if(rows[j]=='true' && r=='openTrans'){
+					if(rows[j].split("|")[1]=='true' && r=='OpenWrite'){
 						css+=' info'; 
 						indexips.set(ips.get_key(i),ips.get_key(i));
 					}
-					if(rows[j]=='true' && r=='IsMaster'){
+					if(rows[j].split("|")[1]=='true' && r=='IsMaster'){
 						css+=' master'; 
 					}
 					reloadIPs.set(ips.get_key(i),ips.get_key(i));
@@ -170,22 +167,22 @@ function writeRow(name,data){
 	}
    //get indexer info
 	for(var r in data){ 
-			var rows = data[r]; 
+			var rows = data[r].split(","); 
 			for(var j in rows){ 
-				if(indexips.get(j)){ 
-					if(rows[j]!='null' && r=='IndexType'){
-						indexips.set(j,rows[j]);
+				if(indexips.get(rows[j].split("|")[0])){ 
+					if(rows[j].split("|")[1]!='null' && r=='IndexType'){
+						indexips.set(rows[j].split("|")[0],rows[j].split("|")[1]);
 					}  
-					if(rows[j]!='null' && r=='FullCron'){
-						cron_content+=",FullCron||"+rows[j]+"||"+ j;
+					if(rows[j].split("|")[1]!='null' && r=='FullCron'){
+						cron_content+=",FullCron||"+rows[j].split("|")[1]+"||"+rows[j].split("|")[0];
 					}
-					if(rows[j]!='null' && r=='DeltaCron'){
-						cron_content+=",DeltaCron||"+rows[j]+"||"+j;
+					if(rows[j].split("|")[1]!='null' && r=='DeltaCron'){
+						cron_content+=",DeltaCron||"+rows[j].split("|")[1]+"||"+rows[j].split("|")[0];
 					}
 				}
-				if(reloadIPs.get(j)){
-					if(rows[j]!='null' && r=='IndexType'){
-						reloadIPs.set(j,rows[j]);
+				if(reloadIPs.get(rows[j].split("|")[0])){
+					if(rows[j].split("|")[1]!='null' && r=='IndexType'){
+						reloadIPs.set(rows[j].split("|")[0],rows[j].split("|")[1]);
 					} 
 				}
 			} 
@@ -204,14 +201,12 @@ function writeRow(name,data){
 		if(reloadIPs.get_key(i)!='default')
 			reloadinfos+=","+reloadIPs.get_key(i)+"||"+reloadIPs.get_value(i);
 	}
-	 
 	var str = '<div alias="'+alias+'" class="bs-example widget-shadow" data-example-id="hoverable-table">';
 	str +='<h4>'+name+(' <a style="float:right;margin:0 3px;" reload-ip="'+reloadinfos+'" data-id="'+name+'" data-ip="'+index_ip_info+'" data-info="'+cron_content+'" class="manage_index btn btn-success" data-toggle="modal" data-target="#gridSystemModal"> <i class="fa fa-dashboard"></i> <span class="waitloading">Manage Writer</span></a>');
 	str +='<a title="edit cloud xml config file" style="float:right;margin:0 3px;" data-id="'+name+'" data-ip="'+index_ip_info+'" class="edit_config btn btn-primary" data-toggle="modal" data-target="#gridSystemModal"><i class="fa fa-edit"></i> <span style=" display:none" class="waitloading ">Edit Cloud Config</span></a>';
 	str +='<a title="upload river instance config files to cloud" style="float:right;margin:0 3px;" data-id="'+name+'" data-ip="'+index_ip_info+'" class="upload_config  btn btn-info" ><i class="fa fa-cloud-upload"></i> <span style=" display:none" class="waitloading ">Upload Instance Files</span></a>';
-	str +='<a title="reset river instance cloud status" style="float:right;margin:0 3px;" data-id="'+name+'" data-ip="'+indexips.get_key(0)+'" class="reset_config  btn btn-warning" ><i class="fa fa-eraser"></i> <span  style=" display:none" class="waitloading ">Reset Instance Status</span></a>';
-	str +='<a title="Backup river instance cloud status and configs" style="float:right;margin:0 3px;" data-id="'+name+'" data-ip="'+indexips.get_key(0)+'" class="backup_config  btn btn-success" ><i class="fa fa-cloud-download"></i> <span style=" display:none"  class="waitloading ">Backup Instance Configs and Status</span></a>';
-	str +='<a title="Delete river instance data and configs" style="float:right;margin:0 3px;" data-id="'+name+'" data-ip="'+deleteIps+'" class="delete_instance  btn btn-danger" ><i class="fa  fa-code-fork"></i> <span style=" display:none"  class="waitloading ">Delete Instance And Data</span></a>';
+	str +='<a title="reset river instance cloud status" style="float:right;margin:0 3px;" data-id="'+name+'" data-ip="'+indexips.get_key(0)+'" class="reset_config  btn btn-warning" ><i class="fa fa-eraser"></i> <span   class="waitloading ">Reset Instance Status</span></a>';
+	str +='<a title="Backup river instance cloud status and configs" style="float:right;margin:0 3px;" data-id="'+name+'" data-ip="'+indexips.get_key(0)+'" class="backup_config  btn btn-success" ><i class="fa fa-cloud-download"></i> <span   class="waitloading ">Backup Instance Configs and Status</span></a>';
 	str +='</h4><table class="table table-hover"> <thead> <tr> <th>IP</th>'+columninfo+'</tr> </thead> <tbody> '+rowinfos+' </tbody> </table>';
 	str +='</div>'; 
 	return str;
@@ -222,43 +217,6 @@ $(function(){
 		$("#gridSystemModalLabel").html('<i class="fa fa-bar-chart-o"></i>View '+$(this).attr("data-id")+" Run State");
 		get_info($(this).attr("data-id"),$(this).attr("data-ip")); 
 	})
-	
-	
-	$(document).on("click",".delete_instance",function(){ 
-		 var _instance = $(this).attr("data-id"); 
-		 var obj = $(this);
-		 var ips = obj.attr("data-ip").split(","); 
-		 for (i=0;i<ips.length;i++) 
-		 { 	
-			 if(ips[i].length<1){
-				 continue;
-			 }
-			 $.ajax({
-					url : global_service_url + "server/InstancesAction",
-					data : {  
-						action:"removeInstanceFromNode",
-						instance:_instance,
-						ip:ips[i]
-					},
-					type : 'GET',
-					dataType : "json",
-					contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
-					success : function(data) {
-						obj.parent().parent().hide(200);
-						if(data=="100"){
-							alert(" delete from "+ips[i]+" Success!");
-						}else{
-							alert(data);
-						}
-					},
-					error : function(data) { 
-						alert("连接失败!"); 
-					}
-				});
-		 } 
-		 
-	})
-	
 	$(document).on("click",".backup_config",function(){ 
 		 var _instance = $(this).attr("data-id"); 
 		 $.ajax({
@@ -419,23 +377,20 @@ function get_info(indexs,ips){
 		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 		success : function(data) { 
 			is_set = true;
-			var _tmps = eval(data); 
+			var tmps = eval(data); 
 			var content=""; 
-			tmps = _tmps.info.split("[");
+			tmps = tmps.info.split("[");
 			for(var i=0;i<tmps.length;i++){
 				if(tmps[i].length>1){
 					var row = tmps[i].split("]");
 					content+='<div class="row" >';  
 					content+= '<h4 class="hdg">'+row[0]+'</h4>';
-					if(row.length<2){
-						$("#gridSystemModal .modal-body").html(_tmps.info);
-						return;
-					}
 					if(row[0].indexOf('状态')>0){ 
 						var columns = row[1].split(";");
 					}else{  
 						var columns = row[1].split(",");
-					} 
+					}
+					
 					for(var j=0;j<columns.length;j++){
 						if( columns[j].split(':').length>1){   
 							if(row[0].indexOf('状态')>0){  
