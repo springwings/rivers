@@ -379,21 +379,20 @@ function get_info(indexs,ips){
 			is_set = true;
 			var tmps = eval(data); 
 			var content=""; 
-			tmps = tmps.info.split("[");
-			for(var i=0;i<tmps.length;i++){
-				if(tmps[i].length>1){
-					var row = tmps[i].split("]");
+			tmps = tmps.info
+			for(var i in tmps) {
+				if(tmps[i].length>1){ 
 					content+='<div class="row" >';  
-					content+= '<h4 class="hdg">'+row[0]+'</h4>';
-					if(row[0].indexOf('状态')>0){ 
-						var columns = row[1].split(";");
+					content+= '<h4 class="hdg">'+i+'</h4>';
+					if(tmps[i].indexOf('状态')>0){ 
+						var columns = tmps[i].split(";");
 					}else{  
-						var columns = row[1].split(",");
+						var columns = tmps[i].split(",");
 					}
 					
 					for(var j=0;j<columns.length;j++){
 						if( columns[j].split(':').length>1){   
-							if(row[0].indexOf('状态')>0){  
+							if(i.indexOf('状态')>0){  
 								if(columns[j].search('full:null')!= -1 || columns[j].search('increment:null')!= -1){ 
 									content+= '<div class="col-md-10 grid_box1 gray"> 未启动或已执行完毕！ </div>'; 
 								}else{
@@ -410,7 +409,7 @@ function get_info(indexs,ips){
 				
 							} 
 						}else{
-							if(row[0].search('增量状态')!= -1 || row[0].search('增量状态')!= -1){
+							if(i.search('增量状态')!= -1 || i.search('增量状态')!= -1){
 								content+= '<div class="col-md-10 grid_box1 gray"> 未启动或已执行完毕！ </div>';
 							}else{
 								content+= '<div class="col-md-10 grid_box1">'+columns[j] +'</div>';
@@ -420,7 +419,8 @@ function get_info(indexs,ips){
 					}
 					content+= '</div>';
 				} 
-			}
+			} 
+			 
 			$("#gridSystemModal .modal-body").attr("contentEditable",'false');
 			if(content.length<2){
 				$("#gridSystemModal .modal-body").html("no data!");
