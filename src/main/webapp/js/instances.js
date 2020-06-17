@@ -106,23 +106,21 @@ function Map() {
 
 
 function writeRow(name,data){  
-	 
 	var columninfo = "";
 	var ips = new Map();
 	var rowinfos = "";  
 	var cron_content="";
 	var indexips = new Map();
 	var alias="";
-	var reloadIPs = new Map();
-
+	var reloadIPs = new Map(); 
 	for(var r in data){
 		if(r!='IndexType')
 			columninfo+='<th>'+r+'</th>'; 
-	 
-		var rows = data[r].split(",");
+
+		var rows = data[r];
 		for(var j in rows){  
-			if(ips.get(rows[j].split("|")[0])==null){
-				ips.set(rows[j].split("|")[0],rows[j].split("|")[0]);
+			if(ips.get(j)==null){
+				ips.set(j,j);
 			} 
 		}; 
 	}     
@@ -141,24 +139,24 @@ function writeRow(name,data){
 		rowcontent+='<a data-ip="'+ips.get_key(i)+'"  data-id="'+name+'" class="view_info " href="" data-toggle="modal" data-target="#gridSystemModal" title="view run state">';
 		rowcontent+= ips.get_key(i)+"</a></td>"; 
 		for(var r in data){    
-			var rows = data[r].split(",");  
+			var rows = data[r];  
 			var is_set = false; 
 			for(var j in rows){ 
-				if(rows[j].split("|")[0]==ips.get_key(i)){
+				if(j==ips.get_key(i)){
 					if(r=='IndexType'){
-						indextype = rows[j].split("|")[1];
+						indextype = rows[j];
 					}else{
-						rowcontent+="<td>"+(rows[j].split("|")[1]=='null'?'not set!':rows[j].split("|")[1])+"</td>";
+						rowcontent+="<td>"+(rows[j]=='null'?'not set!':rows[j])+"</td>";
 					}
 					if(r=='Alias'){
-						alias = rows[j].split("|")[1];
+						alias = rows[j];
 					}
 					is_set = true;
-					if(rows[j].split("|")[1]=='true' && r=='openTrans'){
+					if(rows[j]=='true' && r=='openTrans'){
 						css+=' info'; 
 						indexips.set(ips.get_key(i),ips.get_key(i));
 					}
-					if(rows[j].split("|")[1]=='true' && r=='IsMaster'){
+					if(rows[j]=='true' && r=='IsMaster'){
 						css+=' master'; 
 					}
 					reloadIPs.set(ips.get_key(i),ips.get_key(i));
@@ -172,22 +170,22 @@ function writeRow(name,data){
 	}
    //get indexer info
 	for(var r in data){ 
-			var rows = data[r].split(","); 
+			var rows = data[r]; 
 			for(var j in rows){ 
-				if(indexips.get(rows[j].split("|")[0])){ 
-					if(rows[j].split("|")[1]!='null' && r=='IndexType'){
-						indexips.set(rows[j].split("|")[0],rows[j].split("|")[1]);
+				if(indexips.get(j)){ 
+					if(rows[j]!='null' && r=='IndexType'){
+						indexips.set(j,rows[j]);
 					}  
-					if(rows[j].split("|")[1]!='null' && r=='FullCron'){
-						cron_content+=",FullCron||"+rows[j].split("|")[1]+"||"+rows[j].split("|")[0];
+					if(rows[j]!='null' && r=='FullCron'){
+						cron_content+=",FullCron||"+rows[j]+"||"+ j;
 					}
-					if(rows[j].split("|")[1]!='null' && r=='DeltaCron'){
-						cron_content+=",DeltaCron||"+rows[j].split("|")[1]+"||"+rows[j].split("|")[0];
+					if(rows[j]!='null' && r=='DeltaCron'){
+						cron_content+=",DeltaCron||"+rows[j]+"||"+j;
 					}
 				}
-				if(reloadIPs.get(rows[j].split("|")[0])){
-					if(rows[j].split("|")[1]!='null' && r=='IndexType'){
-						reloadIPs.set(rows[j].split("|")[0],rows[j].split("|")[1]);
+				if(reloadIPs.get(j)){
+					if(rows[j]!='null' && r=='IndexType'){
+						reloadIPs.set(j,rows[j]);
 					} 
 				}
 			} 
